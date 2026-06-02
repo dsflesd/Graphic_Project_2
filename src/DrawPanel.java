@@ -2,23 +2,23 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.Point;
-import java.util.ArrayList;
-import java.awt.Font;
+
 
 class DrawPanel extends JPanel implements MouseListener {
-
-    private Deck d;
+    private int clickCounter=0;
+    private Deck deck;
     private Card[][] cards;
-
+    private int numCardsLeft;
+    private long startTime = System.currentTimeMillis();
+    private long elapsedTime =0;
     public DrawPanel() {
 
         cards = new Card[3][3];
-        d = new Deck();
+        deck = new Deck();
+        numCardsLeft=deck.getDeck().size();
         for (int r = 0; r < cards.length; r++) {
             for (int c = 0; c < cards.length; c++) {
-                cards[r][c] = d.getRandomCard();
+                cards[r][c] = deck.getRandomCard();
             }
         }
         this.addMouseListener(this);
@@ -37,20 +37,19 @@ class DrawPanel extends JPanel implements MouseListener {
             x = 50;
         }
 
-        g.drawString("Number of cards left: " + d.getDeck().size(), x, y + 100);
+        g.drawString("Number of cards left: " + numCardsLeft +" Num of clicks: "+clickCounter+" Elapsed Time: "+elapsedTime, x, y + 100);
     }
 
     public void mousePressed(MouseEvent e) {
-
-        if (d.getDeck().size() > 9) {
+        clickCounter++;
+        if (deck.getDeck().size() > 9) {
             for (int r = 0; r < cards.length; r++) {
                 for (int c = 0; c < cards.length; c++) {
-                    cards[r][c] = d.getRandomCard();
+                    cards[r][c] = deck.getRandomCard();
                 }
             }
         }
-
-
+        elapsedTime = System.currentTimeMillis() - startTime;
 
     }
 
