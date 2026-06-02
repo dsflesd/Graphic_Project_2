@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Deck {
-    private  ArrayList<Card> cards=new ArrayList<>();
+    private  ArrayList<Card> Deck =new ArrayList<>();
     public Deck() {
         for (int x=0; x<4;x++){
             String suit = "";
@@ -35,12 +35,17 @@ public class Deck {
                     value = "K";
                 }
                 Card card = new Card(suit,value );
-                cards.add(card);
+                Deck.add(card);
             }
         }
     }
-    public void getRandomCard() {
+
+    public ArrayList<Card> getDeck() {
+        return Deck;
+    }
+
+    public Card getRandomCard() {
         int random=(int)(Math.random()*52);
-        System.out.println(cards.get(random));
+        return Deck.get(random);
     }
 }
