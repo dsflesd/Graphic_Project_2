@@ -1,7 +1,7 @@
+import java.awt.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
-import java.awt.Graphics;
 
 
 class DrawPanel extends JPanel implements MouseListener {
@@ -42,14 +42,25 @@ class DrawPanel extends JPanel implements MouseListener {
 
     public void mousePressed(MouseEvent e) {
         clickCounter++;
+        Point p=e.getPoint();
+        int button=e.getButton();
         if (deck.getDeck().size() > 9) {
+            if (deck.getDeck().get(2).getHitbox().getBounds().contains(p)) {
+
+            }
+        }
+        if (deck.getDeck().size() > 9) {
+            System.out.println(button);
             for (int r = 0; r < cards.length; r++) {
                 for (int c = 0; c < cards.length; c++) {
                     cards[r][c] = deck.getRandomCard();
                 }
             }
         }
+
+
         elapsedTime = System.currentTimeMillis() - startTime;
+        elapsedTime=elapsedTime/1000;
 
     }
 
