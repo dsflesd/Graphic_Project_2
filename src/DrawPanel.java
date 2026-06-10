@@ -31,29 +31,37 @@ class DrawPanel extends JPanel implements MouseListener {
         for (int r = 0; r < cards.length; r++) {
             for (int c = 0; c < cards.length; c++) {
                 g.drawImage(cards[r][c].getImage(), x, y, null);
+                Rectangle cardHitBox = new Rectangle(x, y, cards[r][c].getImage().getWidth(), cards[r][c].getImage().getHeight());
+                cards[r][c].setHitbox(cardHitBox);
+                if (cards[r][c].getHighlight()) {
+                    g.drawRect(x, y, (int)cardHitBox.getWidth(), (int)cardHitBox.getHeight());
+                }
                 x += 80;
             }
             y += 100;
             x = 50;
-        }
-
-        g.drawString("Number of cards left: " + numCardsLeft +" Num of clicks: "+clickCounter+" Elapsed Time: "+elapsedTime, x, y + 100);
-    }
-
+        }}
     public void mousePressed(MouseEvent e) {
         clickCounter++;
         Point p=e.getPoint();
         int button=e.getButton();
-        if (deck.getDeck().size() > 9) {
-            if (deck.getDeck().get(2).getHitbox().getBounds().contains(p)) {
-
-            }
-        }
-        if (deck.getDeck().size() > 9) {
-            System.out.println(button);
+        if (!deck.getDeck().isEmpty()) {
             for (int r = 0; r < cards.length; r++) {
                 for (int c = 0; c < cards.length; c++) {
-                    cards[r][c] = deck.getRandomCard();
+                    if (button == 1) {
+                        if (cards[r][c].getHitbox().contains(p)) {
+                            cards[r][c] = deck.getRandomCard();
+                        }
+                    }
+                    else if (button==3) {
+                    if (cards[r][c].getHitbox().contains(p)){
+                        cards[r][c].flipHighlight();
+
+                    }
+                    if (cards[r][c].getHighlight()){
+                      cards[r][c].getValue();
+                    }
+                    }
                 }
             }
         }
