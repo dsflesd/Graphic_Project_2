@@ -1,74 +1,55 @@
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
 
-public class Card {
-    private String suit;
-    private String value;
-    private String imageFileName;
-    private BufferedImage image;
-    private Rectangle hitbox;
-    private boolean highlight;
+public class Deck {
+    private  ArrayList<Card> Deck =new ArrayList<>();
 
-    public Card(String suit, String value) {
-        this.highlight = true;
-        this.suit = suit;
-        this.value = value;
-        this.imageFileName = "card_"+suit+"_"+value+".png";
-        this.image = readImage();
-        this.hitbox = new Rectangle(-10, -10, image.getWidth(), image.getHeight());
-    }
+    public Deck() {
 
-    public Rectangle getHitbox() {
-        return hitbox;
-    }
-
-    public boolean getHighlight() {
-        return this.highlight;
-    }
-
-    public void flipHighlight() {
-        this.highlight = !this.highlight;
-    }
-
-    public void setHitbox(Rectangle hitbox) {
-        this.hitbox = hitbox;
-    }
-
-    public String getSuit() {
-        return suit;
-    }
-
-
-    public String getValue() {
-        return value;
-    }
-
-    public String getImageFileName() {
-        return imageFileName;
-    }
-
-    public String toString() {
-        return suit + " " + value;
-    }
-
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public BufferedImage readImage() {
-        try {
-            BufferedImage image;
-            image = ImageIO.read(new File("image/" + imageFileName));
-            return image;
-        }
-        catch (IOException e) {
-            System.out.println(e);
-            return null;
+        for (int x=0; x<4;x++){
+            String suit = "";
+            if (x==0){
+                suit="diamonds";
+            }
+            else if(x==1){
+                suit="clubs";
+            }
+            else if(x==2){
+                suit="hearts";
+            }
+            else if(x==3){
+                suit="spades";
+            }
+            for (int i=1; i<14; i++) {
+                String value = "0" + i;
+                if (i == 1) {
+                    value = "A";
+                }
+                if (i == 10) {
+                    value = "10";
+                }
+                if (i == 11) {
+                    value = "J";
+                }
+                if (i == 12) {
+                    value = "Q";
+                }
+                if (i == 13) {
+                    value = "K";
+                }
+                Card card = new Card(suit,value );
+                Deck.add(card);
+            }
         }
     }
 
+    public ArrayList<Card> getDeck() {
+        return Deck;
+    }
+
+    public Card getRandomCard() {
+
+        int random=(int)(Math.random()*Deck.size());
+        return Deck.remove(random);
+
+    }
 }
