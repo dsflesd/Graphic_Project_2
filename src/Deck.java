@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Deck {
     private  ArrayList<Card> Deck =new ArrayList<>();
-    private int numOfCards= Deck.toArray().length;
+
     public Deck() {
 
         for (int x=0; x<4;x++){
@@ -48,8 +48,8 @@ public class Deck {
 
     public Card getRandomCard() {
 
-        int random=(int)(Math.random()*numOfCards);
-        numOfCards--;
+        int random=(int)(Math.random()*Deck.size());
         return Deck.remove(random);
+
     }
 }
