@@ -40,28 +40,44 @@ class DrawPanel extends JPanel implements MouseListener {
             }
             y += 100;
             x = 50;
-        }}
+
+        }  g.drawString("Number of cards left: " + deck.getDeck().size(), x, y + 100);
+    }
     public void mousePressed(MouseEvent e) {
         clickCounter++;
         Point p=e.getPoint();
         int button=e.getButton();
+        int highlighted=0;
+        boolean available=true;
+        int sum=0;
         if (!deck.getDeck().isEmpty()) {
             for (int r = 0; r < cards.length; r++) {
                 for (int c = 0; c < cards.length; c++) {
                     if (button == 1) {
                         if (cards[r][c].getHitbox().contains(p)) {
                             cards[r][c] = deck.getRandomCard();
+
+                        }
+                        else if (cards[r][c].getHighlight()){
+
                         }
                     }
                     else if (button==3) {
-                    if (cards[r][c].getHitbox().contains(p)){
-                        cards[r][c].flipHighlight();
+                        if (cards[r][c].getHitbox().contains(p)){
+                            cards[r][c].flipHighlight();
+                            highlighted++;
+                        }}
+//                        for (int i=0; i<r*c; i++) {
+//                            if (cards[r][c].getHighlight()) {
+//                                if (!(cards[r][c].getValue() == "K"||cards[r][c].getValue() == "J"||cards[r][c].getValue() == "Q")){
+//                                    sum += Integer.parseInt((cards[r][c].getValue()));
+//                                }
+//                            }
+//                           if(sum==11){
+//                               System.out.println("yes");
+//
+//                           }
 
-                    }
-                    if (cards[r][c].getHighlight()){
-                      cards[r][c].getValue();
-                    }
-                    }
                 }
             }
         }
